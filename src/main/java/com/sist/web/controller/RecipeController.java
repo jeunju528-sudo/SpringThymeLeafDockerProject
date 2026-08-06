@@ -33,7 +33,7 @@ public class RecipeController {
 		model.addAttribute("list", list);
 		model.addAttribute("pages", pages);
 		
-		model.addAttribute("main_html", "/main/home");
+		model.addAttribute("main_html", "main/home");
 		
 		return "main/main";
 	}
@@ -47,7 +47,7 @@ public class RecipeController {
 		model.addAttribute("list", list);
 		model.addAttribute("pages", pages);
 		
-		model.addAttribute("main_html", "/recipe/chef");
+		model.addAttribute("main_html", "recipe/chef");
 		
 		return "main/main";
 	}
