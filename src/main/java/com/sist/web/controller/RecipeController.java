@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sist.web.entity.Chef;
 import com.sist.web.entity.Recipe;
 import com.sist.web.service.RecipeService;
 
@@ -27,7 +28,7 @@ public class RecipeController {
 	public String main_main(@RequestParam(value = "page",defaultValue = "1") int page, Model model) {
 		
 		List<Recipe> list = service.recipeListData(page);
-		int[] pages = service.getPageData(page);
+		int[] pages = service.getPageData(page, 12);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pages", pages);
@@ -36,4 +37,20 @@ public class RecipeController {
 		
 		return "main/main";
 	}
+	
+	@GetMapping("/recipe/chef_list")
+	public String recipe_chef_list(@RequestParam(value = "page",defaultValue = "1") int page, Model model) {
+		
+		List<Chef> list = service.chefListData(page);
+		int[] pages = service.getPageData(page, 20);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pages", pages);
+		
+		model.addAttribute("main_html", "/recipe/chef");
+		
+		return "main/main";
+	}
+	
+	
 }

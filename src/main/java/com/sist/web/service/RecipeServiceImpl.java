@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.sist.web.entity.Chef;
 import com.sist.web.entity.Recipe;
+import com.sist.web.repository.ChefRepository;
 import com.sist.web.repository.RecipeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
 	private final RecipeRepository recipeRepository;
+	private final ChefRepository chefRepository;
 
 	@Override
 	public List<Recipe> findByTitleContains(String title) {
@@ -41,14 +44,23 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public int[] getPageData(int page) {
-		int totalpage = (int)(Math.ceil(recipeRepository.count()/12.0));
+	public int[] getPageData(int page, int rowsize) {
+		int totalpage = (int)(Math.ceil(recipeRepository.count()/(double)rowsize));
 		int startpage = ((page-1)/10*10)+1;
 		int endpage = ((page-1)/10*10)+10;
 		if(endpage > totalpage)
 			endpage = totalpage;
 		int[] pages = {page,totalpage,startpage,endpage};
 		return pages;
+	}
+
+	@Override
+	public List<Chef> chefListData(int page) {
+		
+		Pageable pg = PageRequest.of(page-1, 20);
+		Page<Chef> pList = chefRepository.findAll(pg);
+		List<Chef> list = pList.getContent();
+		return list;
 	}
 	
 }
