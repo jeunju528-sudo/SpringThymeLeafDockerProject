@@ -1,4 +1,12 @@
+server:
+  servlet:
+    context-path: /
 spring:
+  servlet:
+    multipart:
+      enable: true
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:XE
     username: hr
@@ -16,7 +24,9 @@ spring:
     encoding: UTF-8
     prefix: classpath:templates/
     suffix: .html
-
+    mode: HTML
+file:
+  upload_dir: C:/upload
 mybatis:
   type-aliases-package: com.sist.web.vo
   mapper-locations: mybatis/mapper/*.xml
