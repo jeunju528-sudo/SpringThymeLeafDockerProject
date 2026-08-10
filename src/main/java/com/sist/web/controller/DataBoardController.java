@@ -73,7 +73,7 @@ public class DataBoardController {
 					String ext = originName.substring(originName.lastIndexOf("."));
 					int count = 1;
 					while(f.exists()) {
-						String newName = name+"("+count+")";
+						String newName = name+"("+count+")"+ext;
 						f = new File(uploadDir+"/"+newName);
 						count++;
 					}
@@ -82,7 +82,7 @@ public class DataBoardController {
 				Path path = Paths.get(uploadDir, f.getName()); // uploadDir(폴더 경로)와 f.getName()(파일명)을 합쳐서 최종 저장 경로를 만듦
 				
 				// file.getInputStream() : 업로드된 파일의 실제 데이터(바이트 스트림)를 읽어오는 통로
-				Files.copy(file.getInputStream(), path);		// // 그 경로에 내용 써넣기
+				Files.copy(file.getInputStream(), path);		// copy: 그 스트림을 읽어서 path 위치에 파일로 써넣음
 				filename+=f.getName()+",";
 				filesize+=f.length()+","; // File이 size를 갖고있지 않고, length()를 호출할 때마다 OS에 실제 파일 크기를 물어봐서 돌려줌
 				bChk = true;
