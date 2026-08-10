@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.container {
+	margin-top: 50px;
+}
+.row {
+	margin: 0px auto;
+	width: 500px;
+}
+</style>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h3 class="text-center">Vue를 이용한 Multi Upload</h3>
+			<!-- @change에 () 괄호를 붙이면 event가 전송되지 않아서 괄호를 붙이면 안됨 아니면 @change($event) 이렇게 명시적으로 해야함 -->
+			<input type="file" size="20" style="float: left;" multiple="multiple" @change="handelerFile">
+			<button @click="submit()" class="btn-sm btn-danger">업로드</button>
+		</div>
+	</div>
+	<script>
+		const app = Vue.createApp({
+			data(){
+				return {
+					files:[]
+				}
+			},
+			methods:{
+				handelerFile(e){
+					this.files=e.target.files
+					console.log(this.files)
+				},
+				submit(){
+					const formData = new FormData()
+					for(let i of this.files){
+						formData.append('files',i)
+					}
+					console.log(formData)
+					axios.post('/multi_upload',formData,{
+						headers:{
+							'Content-Type':'multipart/form-data'
+						}
+					}).then(()=>alert("등록완료!!"))
+				}
+			}
+		}).mount(".container")
+	</script>
+</body>
+</html>
