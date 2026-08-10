@@ -34,6 +34,7 @@
 			methods:{
 				handelerFile(e){
 					this.files=e.target.files
+					//  this.files = Array.from(e.target.files)
 					console.log(this.files)
 				},
 				submit(){
@@ -41,6 +42,11 @@
 					for(let i of this.files){
 						formData.append('files',i)
 					}
+					/* 
+					this.files.forEach(file => {
+				        formData.append("files", file)
+				    })
+					*/
 					console.log(formData)
 					axios.post('/multi_upload',formData,{
 						headers:{
