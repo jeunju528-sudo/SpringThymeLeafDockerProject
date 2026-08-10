@@ -26,7 +26,7 @@ spring:
     suffix: .html
     mode: HTML
 file:
-  upload_dir: C:/uploads
+  upload_dir: C:\\uploads
 mybatis:
   type-aliases-package: com.sist.web.vo
   mapper-locations: mybatis/mapper/*.xml
